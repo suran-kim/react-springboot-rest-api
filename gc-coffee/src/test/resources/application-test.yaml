@@ -1,0 +1,6 @@
+# 테스트에서만 사용할 데이터 소스 설정
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:2215/test-order_mgmt
+    username: test
+    password: test1234!
