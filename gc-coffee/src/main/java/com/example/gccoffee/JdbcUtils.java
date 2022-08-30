@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 // Util성 메소드
-public class Utils {
+public class JdbcUtils {
     // byte -> UUID 메소드
     public static UUID toUUID(byte[] bytes) {
         var byteBuffer = ByteBuffer.wrap(bytes);

@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.example.gccoffee.Utils.toLocalDateTime;
-import static com.example.gccoffee.Utils.toUUID;
+import static com.example.gccoffee.JdbcUtils.toLocalDateTime;
+import static com.example.gccoffee.JdbcUtils.toUUID;
 
 // ProductRepository 구현
 public class ProductJdbcRepository implements ProductRepository {
