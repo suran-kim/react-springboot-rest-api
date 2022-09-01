@@ -42,7 +42,13 @@ public class ProductJdbcRepository implements ProductRepository {
 
     @Override
     public Product update(Product product) {
-        return null;
+        var update =  jdbcTemplate.update("UPDATE products SET product_name = :productName, category = :category, price = :price, description = :description, created_at = :createdAt, updated_at= :updatedAt" +
+                " WHERE product_id = (UNHEX(REPLACE(:productId, '-', '')))",
+                toParamMap(product));
+        if (update != 1) {
+            throw new RuntimeException("Nothing was inserted");
+        }
+        return product;
     }
 
     @Override
@@ -82,7 +88,7 @@ public class ProductJdbcRepository implements ProductRepository {
 
     @Override
     public void deleteAll() {
-
+        jdbcTemplate.update("DELETE FROM products", Collections.emptyMap());
     }
 
     //  resultSet으로 받은 객체 -> Product형 객체로 포장
@@ -97,6 +103,7 @@ public class ProductJdbcRepository implements ProductRepository {
 
         return new Product(productId, productName, category, price, description, createdAt, updatedAt);
     };
+
 
     // product형 객체 -> Map으로 포장
     private Map<String, Object> toParamMap(Product product) {

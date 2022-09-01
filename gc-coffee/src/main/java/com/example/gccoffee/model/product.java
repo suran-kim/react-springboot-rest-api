@@ -1,6 +1,7 @@
 package com.example.gccoffee.model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 // 상품 - 커피 bean 패키지
@@ -20,8 +21,8 @@ public class Product {
         this.category = category;
         this.price = price;
 
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
     }
 
     public Product(UUID productId, String productName, Category category, long price, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -66,22 +67,22 @@ public class Product {
     // Setter (불변이 아닌 필드만 생성)  --------
     public void setPrice(long price) {
         this.price = price;
-        this.updatedAt = LocalDateTime.now(); // 값 변경 때마다 업데이트 날짜 변경
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); // 값 변경 때마다 업데이트 날짜 변경
     }
 
     public void setCategory(Category category) {
         this.category = category;
-        this.updatedAt = LocalDateTime.now(); // 값 변경 때마다 업데이트 날짜 변경
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); // 값 변경 때마다 업데이트 날짜 변경
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
-        this.updatedAt = LocalDateTime.now(); // 값 변경 때마다 업데이트 날짜 변경
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); // 값 변경 때마다 업데이트 날짜 변경
     }
 
     public void setDescription(String description) {
         this.description = description;
-        this.updatedAt = LocalDateTime.now(); // 값 변경 때마다 업데이트 날짜 변경
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); // 값 변경 때마다 업데이트 날짜 변경
     }
 
 
