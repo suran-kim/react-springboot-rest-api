@@ -84,6 +84,4 @@ public class Product {
         this.description = description;
         this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS); // 값 변경 때마다 업데이트 날짜 변경
     }
-
-
 }
