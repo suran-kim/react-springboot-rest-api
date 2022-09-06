@@ -1,6 +1,7 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import React, {Component, useState} from 'react';
+export default App;
 
 
 function Product(props) {
@@ -21,7 +22,7 @@ function Product(props) {
                 <button className='btn btn-small btn-outline-dark'>추가</button>
             </div>
         </>
-    )
+    );
 }
 
 function ProductList({products = []}) { // {} : 객체 정의 문법. => props 내부에 products가 존재한다는 뜻이 된다.
@@ -30,15 +31,15 @@ function ProductList({products = []}) { // {} : 객체 정의 문법. => props �
             <h5 className='flex-grow-0'><b>상품 목록</b></h5>
             <ul className='list-group products'>
                 {/* products 수만큼 반복 */}
-                {products.map(v =>
+                {products.map((v) => (
                     <li key={v.id} className='list-group-item d-flex mt-3'> {/* map을 돌 때 key가 필요 */}
                         <Product productName={v.productName} category={v.category}
                                  price={v.price}/> {/*product 컴포넌트에 전달*/}
                     </li>
-                )}
+                ))}
             </ul>
         </React.Fragment>
-    )
+    );
 }
 
 
@@ -47,12 +48,12 @@ function SummaryItem({productName, count}) {
         <div className='row'>
             <h6 className='p-0'>{productName}<span className='badge bg-dark'>{count}개</span></h6>
         </div>
-    )
+    );
 }
 
 
 function Summary({items = []}) { // items의 디폴트 값을 준다.
-    const totalPrice=items.reduce((prev, curr) => prev + (curr.price * curr.count), 0) // 이전 총금액과 현재의 총금액 합산
+    const totalPrice=items.reduce((prev, curr) => prev + (curr.price * curr.count), 0); // 이전 총금액과 현재의 총금액 합산
     return (
         <>
         <div>
@@ -82,21 +83,21 @@ function Summary({items = []}) { // items의 디폴트 값을 준다.
         </div>
         <button className='btn btn-dark col-12'>결제하기</button>
         </>
-)
+);
 }
 
 
 function App() {
     // 실제 상품 추가
     const [products, setProducts] = useState([ // 인자가 두 개인 배열 반환 => distructure
-        {id: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000},
-        {id: 'uuid-1', productName: '콜롬비아 커피2', category: '커피빈', price: 5000},
-        {id: 'uuid-1', productName: '콜롬비아 커피3', category: '커피빈', price: 5000},
+        {id: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000, count: 1},
+        {id: 'uuid-1', productName: '콜롬비아 커피2', category: '커피빈', price: 5000, count: 1},
+        {id: 'uuid-1', productName: '콜롬비아 커피3', category: '커피빈', price: 5000, count: 1},
     ]);
     const [items, setItems] = useState([ // 인자가 두 개인 배열 반환 => distructure
-        {id: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000},
-        {id: 'uuid-1', productName: '콜롬비아 커피2', category: '커피빈', price: 5000},
-        {id: 'uuid-1', productName: '콜롬비아 커피3', category: '커피빈', price: 5000},
+        {id: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000, count: 1},
+        {id: 'uuid-1', productName: '콜롬비아 커피2', category: '커피빈', price: 5000, count: 1},
+        {id: 'uuid-1', productName: '콜롬비아 커피3', category: '커피빈', price: 5000, count: 1},
     ]);
     return (<div className='container-fluid'>
             <div className='row justify-content-center m-4'>
@@ -116,4 +117,3 @@ function App() {
     );
 }
 
-export default App;
