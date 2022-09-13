@@ -1,8 +1,9 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProductList} from "./components/ProductList";
 import {Summary} from "./components/Summary";
+import axios from "axios";
 
 export default App;
 
@@ -25,6 +26,14 @@ function App() {
         setItems(updatedItems);
         console.log(products.find(v => v.id == id), "added!"); // state에서 해당 정보를 가져오는 코드
     }
+
+    // 렌더링이 끝나면(상태가 바뀌면) 호출
+    useEffect(() => {
+        // 비동기 작업 진행
+        axios.get('http://localhost:8080/api/v1/products')
+            .then(v => setProducts(v.data));  // 서버로부터 데이터를 가져온다.
+    }, []);
+
     return (<div className='container-fluid'>
             <div className='row justify-content-center m-4'>
                 <h1 className='text-center'>Grids & Circle</h1>
