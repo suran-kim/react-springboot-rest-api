@@ -8,7 +8,7 @@ export function ProductList({products = [], onAddClick}) { // {} : 객체 정의
             <ul className='list-group products'>
                 {/* products 수만큼 반복 */}
                 {products.map((v) => (
-                    <li key={v.id} className='list-group-item d-flex mt-3'> {/* map을 돌 때 key가 필요 */}
+                    <li key={v.productId} className='list-group-item d-flex mt-3'> {/* map을 돌 때 key가 필요 */}
                         <Product {...v} onAddClick={onAddClick}/>
                     </li>
                 ))}

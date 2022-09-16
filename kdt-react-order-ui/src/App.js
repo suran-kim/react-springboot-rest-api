@@ -11,20 +11,20 @@ export default App;
 function App() {
     // 주문할 수 있는 상품 목록
     const [products, setProducts] = useState([ // 인자가 두 개인 배열 반환 => distructure
-        {id: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000},
-        {id: 'uuid-2', productName: '콜롬비아 커피2', category: '커피빈', price: 5000},
-        {id: 'uuid-3', productName: '콜롬비아 커피3', category: '커피빈', price: 5000},
+        {productId: 'uuid-1', productName: '콜롬비아 커피1', category: '커피빈', price: 5000},
+        {productId: 'uuid-2', productName: '콜롬비아 커피2', category: '커피빈', price: 5000},
+        {productId: 'uuid-3', productName: '콜롬비아 커피3', category: '커피빈', price: 5000},
     ]);
     // 이미 주문한 상품 목록
     const [items, setItems] = useState([]); // handleAddClicked -> 상태 변경
-    const handleAddClicked = id => {
-        const product = products.find(v => v.id == id);
-        const found = items.find(v => v.id == id);
+    const handleAddClicked = productId => {
+        const product = products.find(v => v.productId === productId);
+        const found = items.find(v => v.productId === productId);
         // 주목 목록에 id가 일치하는 item이 있는지 확인하고 있으면 count를 증가시킨다. 없으면 id가 일치하는 product를 추가하고 count를 증가시킨다.
         const updatedItems =
-            found ? items.map(v => (v.id == id) ? {...v, count: v.count + 1} : v) : [...items, { ...product, count: 1}]
+            found ? items.map(v => (v.productId === productId) ? {...v, count: v.count + 1} : v) : [...items, { ...product, count: 1}]
         setItems(updatedItems);
-        console.log(products.find(v => v.id == id), "added!"); // state에서 해당 정보를 가져오는 코드
+        console.log(products.find(v => v.productId === productId), "added!"); // state에서 해당 정보를 가져오는 코드
     }
 
     // 렌더링이 끝나면(상태가 바뀌면) 호출
