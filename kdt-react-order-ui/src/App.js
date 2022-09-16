@@ -22,7 +22,10 @@ function App() {
         const found = items.find(v => v.productId === productId);
         // 주목 목록에 id가 일치하는 item이 있는지 확인하고 있으면 count를 증가시킨다. 없으면 id가 일치하는 product를 추가하고 count를 증가시킨다.
         const updatedItems =
-            found ? items.map(v => (v.productId === productId) ? {...v, count: v.count + 1} : v) : [...items, { ...product, count: 1}]
+            found ? items.map(v => (v.productId === productId) ? {
+                ...v,
+                count: v.count + 1
+            } : v) : [...items, {...product, count: 1}]
         setItems(updatedItems);
         console.log(products.find(v => v.productId === productId), "added!"); // state에서 해당 정보를 가져오는 코드
     }
@@ -34,6 +37,31 @@ function App() {
             .then(v => setProducts(v.data));  // 서버로부터 데이터를 가져온다.
     }, []);
 
+    const handleOrderSubmit = (order) => {
+        // 주문 items 여부 판단
+        if (items.length === 0) {
+            alert("아이템을 추가해 주세요!");
+        } else {
+            // 비동기 통신 작업 진행
+
+            axios.post('http://localhost:8080/api/v1/orders', {      //  데이터 매핑 처리
+                email: order.email,
+                address: order.address,
+                postcode: order.postcode,
+                orderItems: items.map(v => ({
+                    productId: v.productId,
+                    category: v.category,
+                    price: v.price,
+                    quantity: v.count
+                }))
+            }).then(v => alert("주문이 정상적으로 접수되었습니다."),
+                e => {
+                    alert("서버장애");
+                    console.error(e);
+                })
+        }
+    }
+
     return (<div className='container-fluid'>
             <div className='row justify-content-center m-4'>
                 <h1 className='text-center'>Grids & Circle</h1>
@@ -44,7 +72,7 @@ function App() {
                         <ProductList products={products} onAddClick={handleAddClicked}/>
                     </div>
                     <div className='col-md-4 summary p-4'>
-                        <Summary items={items}/>
+                        <Summary items={items} onOrderSubmit={handleOrderSubmit}/>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import {SummaryItem} from "./SummaryItem";
 import React, {useState} from "react";
 
-export function Summary({items = []}) {                       // items의 디폴트 값을 준다.
+export function Summary({items = [], onOrderSubmit}) {                       // items의 디폴트 값을 준다.
     const totalPrice = items.reduce((prev, curr) => prev + (curr.price * curr.count), 0);          // 이전 총금액과 현재의 총금액 합산
     //주문 정보 : 사용자 입력에 대한 상태관리 필요
     const [order, setOrder] = useState({                                             //필드로 정의한 뒤 각 input태그와 연결
@@ -11,6 +11,13 @@ export function Summary({items = []}) {                       // items의 디폴
     const handleEmailInputChanged = (e) => {setOrder({...order, email: e.target.value})}  // onChange시마다 받는 콜백함수 연결
     const handleAddressInputChanged = (e) => {setOrder({...order, address: e.target.value})}
     const handlePostcodeInputChanged = (e) => {setOrder({...order, postcode: e.target.value})}
+    const handleSubmit = (e) => {
+        if (order.address === "" || order.email === "" || order.postcode === "") {
+            alert("입력값을 확인해주세요!")
+        } else {
+            onOrderSubmit(order);
+        }
+    }
     return (
         <>
             <div>
@@ -41,7 +48,7 @@ export function Summary({items = []}) {                       // items의 디폴
                 <h5 className='col'>총금액</h5>
                 <h5 className='col text-end'>{totalPrice}원</h5>
             </div>
-            <button className='btn btn-dark col-12'>결제하기</button>
+            <button className='btn btn-dark col-12' onClick={handleSubmit}> 결제하기</button>
         </>
     );
 }
